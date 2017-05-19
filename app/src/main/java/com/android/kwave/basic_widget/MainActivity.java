@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -16,7 +19,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnDog, btnPig, btnHorse;
     ToggleButton toggleButton;
     RadioGroup radioGroup;
-
+    SeekBar seekBar;
+    SeekBar seekBar1;
+    TextView seekCount;
+    TextView seekCount1;
+    EditText name;
+    EditText password;
+    EditText number;
 
 
     @Override
@@ -31,8 +40,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
 
-
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar1 = (SeekBar) findViewById(R.id.seekBar1);
+
+        seekCount = (TextView) findViewById(R.id.seekCount);
+        seekCount1 = (TextView) findViewById(R.id.seekCount1);
+
+        name = (EditText) findViewById(R.id.name);
+        password = (EditText) findViewById(R.id.password);
+        number = (EditText) findViewById(R.id.number);
 
 //        3. 클릭리스터 연결
                 btnDog.setOnClickListener(this);    // 리스너에 this(뭔가)를 넘겨주면
@@ -42,6 +60,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toggleButton.setOnCheckedChangeListener(this);      // 체크드 체인지 리스너O =>  클릭 리스너가 아님
 
                 radioGroup.setOnCheckedChangeListener(this);
+
+                seekBar.setOnSeekBarChangeListener(listener) ;
+
+                seekBar1.setOnSeekBarChangeListener(listener1) ;
+
+                name.setOnClickListener(this);
+                password.setOnClickListener(this);
+                number.setOnClickListener(this);
     }
     @Override
     public void onClick(View v){        // 시스템의 이벤트 리스너를 통해 호출된다
@@ -51,15 +77,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnPig :
                 Toast.makeText(this, "꿀꿀", Toast.LENGTH_SHORT ).show();     // makeText(실행이 되는 액티비티, 띄울 문구, 띄울 시간)  show() : makeText 보이기
-
                 break;
             case R.id.btnHorse :
                 Toast.makeText(this, "이힝~", Toast.LENGTH_SHORT ).show();     // makeText(실행이 되는 액티비티, 띄울 문구, 띄울 시간)  show() : makeText 보이기
+                break;
+            case R.id.name :
+                Toast.makeText(this, "이름을 입력하세요", Toast.LENGTH_SHORT ).show();     // makeText(실행이 되는 액티비티, 띄울 문구, 띄울 시간)  show() : makeText 보이기
+                break;
+            case R.id.password :
+                Toast.makeText(this, "비밀번호를 입력하세요", Toast.LENGTH_SHORT ).show();     // makeText(실행이 되는 액티비티, 띄울 문구, 띄울 시간)  show() : makeText 보이기
 
+                break;
+            case R.id.number :
+                Toast.makeText(this, "번호를 입력하세요", Toast.LENGTH_SHORT ).show();     // makeText(실행이 되는 액티비티, 띄울 문구, 띄울 시간)  show() : makeText 보이기
                 break;
 
         }
     }
+
 
 
     @Override
@@ -93,4 +128,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
         }
     }
+    SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener(){
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekCount.setText(progress + "");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        };
+    SeekBar.OnSeekBarChangeListener listener1 = new SeekBar.OnSeekBarChangeListener(){
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            seekCount1.setText(progress+"");
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+        }
+    };
 }
