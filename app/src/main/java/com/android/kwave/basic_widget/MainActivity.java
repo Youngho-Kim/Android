@@ -1,18 +1,23 @@
 package com.android.kwave.basic_widget;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, RadioGroup.OnCheckedChangeListener {
 
     // 1. 위젯 변수를 선언
     Button btnDog, btnPig, btnHorse;
     ToggleButton toggleButton;
+    RadioGroup radioGroup;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +31,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
 
+
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
 //        3. 클릭리스터 연결
                 btnDog.setOnClickListener(this);    // 리스너에 this(뭔가)를 넘겨주면
                 btnPig.setOnClickListener(this);    // 해당 이벤트가 발생시 this(뭔가)를 호출해준다.
                 btnHorse.setOnClickListener(this);
 
                 toggleButton.setOnCheckedChangeListener(this);      // 체크드 체인지 리스너O =>  클릭 리스너가 아님
+
+                radioGroup.setOnCheckedChangeListener(this);
     }
     @Override
     public void onClick(View v){        // 시스템의 이벤트 리스너를 통해 호출된다
@@ -57,12 +67,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (buttonView.getId()){
             case R.id.toggleButton :
                 if(isChecked) {
+
                     Toast.makeText(this, "스위치가 켜졌습니다", Toast.LENGTH_SHORT).show();     // makeText(실행이 되는 액티비티, 띄울 문구, 띄울 시간)  show() : makeText 보이기
                 }
                 else{
                     Toast.makeText(this, "스위치가 꺼졌습니다", Toast.LENGTH_SHORT ).show();     // makeText(실행이 되는 액티비티, 띄울 문구, 띄울 시간)  show() : makeText 보이기
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        if(radioGroup.getId() == R.id.radioGroup){
+                    switch (checkedId){
+                        case R.id.radio_red :
+                        Toast.makeText(this, "빨간불이 켜졌습니다", Toast.LENGTH_SHORT ).show();
+                        break;
+                        case R.id.radio_green :
+                        Toast.makeText(this, "초록불이 켜졌습니다", Toast.LENGTH_SHORT ).show();
+                        break;
+                        case R.id.radio_blue :
+                        Toast.makeText(this, "파란불이 켜졌습니다", Toast.LENGTH_SHORT ).show();
+                        break;
+                    }
         }
     }
 }
